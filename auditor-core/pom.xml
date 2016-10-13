@@ -13,8 +13,8 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git@github.com:ccem-dev/auditor.git</connection>
-        <developerConnection>scm:git:git@github.com:ccem-dev/auditor.git</developerConnection>
+        <connection>scm:git:git@github.com:ccem-dev/web-service-auditor.git</connection>
+        <developerConnection>scm:git:git@github.com:ccem-dev/web-service-auditor.git</developerConnection>
     </scm>
 
     <repositories>
