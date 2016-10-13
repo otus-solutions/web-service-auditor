@@ -3,7 +3,7 @@
 	<groupId>org.ccem.auditor</groupId>
 	<artifactId>auditor-core</artifactId>
 	<packaging>ejb</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>auditor-core</name>
 
 	<properties>
@@ -69,12 +69,30 @@
 					<ejbVersion>3.1</ejbVersion>
 				</configuration>
 			</plugin>
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-release-plugin</artifactId>-->
+				<!--<version>2.5.3</version>-->
+				<!--<configuration>-->
+					<!--<tagNameFormat>v@{project.version}</tagNameFormat>-->
+					<!--</configuration>-->
+				<!--</plugin>-->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
+				<groupId>external.atlassian.jgitflow</groupId>
+				<artifactId>jgitflow-maven-plugin</artifactId>
+				<version>1.0-m5.1</version>
 				<configuration>
-					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<flowInitContext>
+						<masterBranchName>master</masterBranchName>
+						<developBranchName>dev</developBranchName>
+						<featureBranchPrefix>feature-</featureBranchPrefix>
+						<releaseBranchPrefix>release-</releaseBranchPrefix>
+						<hotfixBranchPrefix>hotfix-</hotfixBranchPrefix>
+						<versionTagPrefix>v</versionTagPrefix>
+					</flowInitContext>
+					<noDeploy>true</noDeploy>
+					<squash>true</squash>
+					<scmCommentPrefix>[RELEASE]</scmCommentPrefix>
 				</configuration>
 			</plugin>
 		</plugins>
