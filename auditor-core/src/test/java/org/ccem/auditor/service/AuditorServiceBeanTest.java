@@ -4,7 +4,6 @@ import org.ccem.auditor.AuditorContext;
 import org.ccem.auditor.model.Auditor;
 import org.ccem.auditor.model.LogEntry;
 import org.ccem.auditor.persistence.AuditorDao;
-import org.ccem.auditor.service.AuditorServiceBean;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -43,17 +42,17 @@ public class AuditorServiceBeanTest {
     @Test
     public void method_persist_should_verify_if_exist_log(){
         Mockito.when(auditorContext.getAuditor()).thenReturn(auditor);
-        Mockito.when(auditor.isEmpty()).thenReturn(Boolean.TRUE);
+        Mockito.when(auditor.readyToPersist()).thenReturn(Boolean.TRUE);
         auditorService.persist();
-        Mockito.verify(auditor).isEmpty();
+        Mockito.verify(auditor).readyToPersist();
     }
 
     @Test
     public void method_persist_should_persist_only_when_exist_data(){
         Mockito.when(auditorContext.getAuditor()).thenReturn(auditor);
-        Mockito.when(auditor.isEmpty()).thenReturn(Boolean.FALSE);
+        Mockito.when(auditor.readyToPersist()).thenReturn(Boolean.FALSE);
         auditorService.persist();
-        Mockito.verify(auditorDaoBean).persist(auditor);
-        Mockito.verify(auditorContext).init();
+        Mockito.verify(auditorDaoBean, Mockito.never()).persist(auditor);
+        Mockito.verify(auditorContext, Mockito.never()).init();
     }
 }

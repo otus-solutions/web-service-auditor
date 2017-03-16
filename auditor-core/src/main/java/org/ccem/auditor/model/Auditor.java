@@ -1,11 +1,15 @@
 package org.ccem.auditor.model;
 
-import java.util.Date;
+import com.google.gson.GsonBuilder;
+import org.ccem.auditor.adapter.InstantAdapter;
+import org.ccem.auditor.adapter.LogEntryAdapter;
+
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Auditor {
-    private Date date;
+    private Instant date;
     private Set<LogEntry> logEntries;
 
     public void addEntry(LogEntry logEntry) {
@@ -13,11 +17,33 @@ public class Auditor {
     }
 
     public void init() {
-        date = new Date();
+        date = Instant.now();
         logEntries = new HashSet<>();
     }
 
-    public Boolean isEmpty(){
-        return logEntries.isEmpty();
+    public Boolean readyToPersist(){
+        return !logEntries.isEmpty();
+    }
+
+    public static Auditor deserialize(String auditorJson) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(LogEntry.class, new LogEntryAdapter());
+        builder.registerTypeAdapter(Instant.class, new InstantAdapter());
+        return builder.create().fromJson(auditorJson, Auditor.class);
+    }
+
+    public static String serialize(Auditor auditor) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(LogEntry.class, new LogEntryAdapter());
+        builder.registerTypeAdapter(Instant.class, new InstantAdapter());
+        return builder.create().toJson(auditor);
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public Set<LogEntry> getLogEntries() {
+        return logEntries;
     }
 }

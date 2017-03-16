@@ -1,11 +1,9 @@
 package org.ccem.auditor.model;
 
-import org.ccem.auditor.util.MaskSensitiveInformations;
-
-import java.util.Date;
+import java.time.Instant;
 
 public class LogEntry {
-    private Date date;
+    private Instant date;
     private String ip;
     private String restURL;
     private String body;
@@ -14,8 +12,16 @@ public class LogEntry {
     public LogEntry(String ip, String restURL, String body, SessionLog sessionIdentifier) {
         this.ip = ip;
         this.restURL = restURL;
-        this.body = MaskSensitiveInformations.mask(body);
+        this.body = body;
         this.sessionIdentifier = sessionIdentifier;
-        this.date = new Date();
+        this.date = Instant.now();
+    }
+
+    public LogEntry(String ip, String restURL, String body, SessionLog sessionIdentifier, Instant date) {
+        this.ip = ip;
+        this.restURL = restURL;
+        this.body = body;
+        this.sessionIdentifier = sessionIdentifier;
+        this.date = date;
     }
 }
