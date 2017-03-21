@@ -5,11 +5,9 @@ import org.ccem.auditor.model.LogEntry;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 @ApplicationScoped
 public class AuditorContext {
-    @Inject
     private Auditor auditor;
 
     @PostConstruct
