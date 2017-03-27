@@ -7,13 +7,16 @@ import org.ccem.auditor.util.Parser;
 
 import java.lang.reflect.Type;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 public class LogEntryAdapter implements JsonDeserializer<LogEntry>, JsonSerializer<LogEntry> {
     @Override
     public LogEntry deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-        Instant date = Instant.parse(jsonObject.get("date").getAsString());
+
+        LocalDateTime date = LocalDateTime.ofInstant(Instant.parse(jsonObject.get("date").getAsString()), ZoneId.of("UTC"));
         String ip = jsonObject.get("ip").getAsString();
         String restURL = jsonObject.get("restURL").getAsString();
         String body = jsonObject.get("body").toString();
@@ -26,7 +29,7 @@ public class LogEntryAdapter implements JsonDeserializer<LogEntry>, JsonSerializ
     @Override
     public JsonElement serialize(LogEntry logEntry, Type type, JsonSerializationContext jsonSerializationContext) {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Instant.class, new InstantAdapter());
+        builder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter());
 
         JsonElement logEntryJsonElement = builder.create().toJsonTree(logEntry);
         JsonObject logEntryJsonObject = logEntryJsonElement.getAsJsonObject();
