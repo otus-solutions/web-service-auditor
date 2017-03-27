@@ -7,12 +7,20 @@ import org.ccem.auditor.model.SessionLog;
 
 public class Parser {
 
-    public static JsonObject body(JsonElement body){
-        JsonObject bodyJsonObject = new Gson().fromJson(body.getAsString(), JsonElement.class).getAsJsonObject();
-        return MaskSensitiveInformation.mask(bodyJsonObject);
+    public static JsonObject body(JsonElement body) {
+        if (!body.isJsonNull()) {
+            JsonObject bodyJsonObject = new Gson().fromJson(body.getAsString(), JsonElement.class).getAsJsonObject();
+            return MaskSensitiveInformation.mask(bodyJsonObject);
+        } else {
+            return new JsonObject();
+        }
     }
 
-    public static SessionLog sessionLog(JsonElement sessionLog){
-        return new Gson().fromJson(sessionLog.toString(), SessionLog.class);
+    public static SessionLog sessionLog(JsonElement sessionLog) {
+        if (!sessionLog.isJsonNull()) {
+            return new Gson().fromJson(sessionLog.toString(), SessionLog.class);
+        } else {
+            return new SessionLog();
+        }
     }
 }
