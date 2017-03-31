@@ -19,10 +19,11 @@ public class LogEntryAdapter implements JsonDeserializer<LogEntry>, JsonSerializ
         LocalDateTime date = LocalDateTime.ofInstant(Instant.parse(jsonObject.get("date").getAsString()), ZoneId.of("UTC"));
         String ip = jsonObject.get("ip").getAsString();
         String restURL = jsonObject.get("restURL").getAsString();
+        String method = jsonObject.get("method").getAsString();
         String body = jsonObject.get("body").toString();
         SessionLog sessionLog = Parser.sessionLog(jsonObject.get("sessionIdentifier"));
 
-        LogEntry logEntry = new LogEntry(ip,restURL, body, sessionLog, date);
+        LogEntry logEntry = new LogEntry(ip, restURL, method, body, sessionLog, date);
         return logEntry;
     }
 
