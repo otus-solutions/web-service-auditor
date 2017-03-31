@@ -3,7 +3,7 @@
 	<groupId>org.ccem.auditor</groupId>
 	<artifactId>auditor-core</artifactId>
 	<packaging>ejb</packaging>
-	<version>1.0.1</version>
+	<version>1.1</version>
 	<name>Auditor Core</name>
 
 	<properties>
