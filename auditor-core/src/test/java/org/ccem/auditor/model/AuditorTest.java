@@ -17,7 +17,7 @@ import java.time.ZoneId;
 @RunWith(PowerMockRunner.class)
 public class AuditorTest {
     private String body = "{\"email\":\"diogo.rosas.ferreira@gmail.com\",\"password\":\"XXXXXXXXXXXXXXXX\"}";
-    private String auditorJson = "{\"date\":\"2017-03-15T19:58:31.306Z\",\"logEntries\":[{\"date\":\"2017-03-15T19:58:31.306Z\",\"ip\":\"143.54.220.56\",\"restURL\":\"localhost:8080/otus-rest\",\"body\":{\"email\":\"diogo.rosas.ferreira@gmail.com\"},\"sessionIdentifier\":{\"token\":\"651cas651891qcw51c3as51c\",\"secretKey\":[54,53,49,99,97,115,54,53,49,56,57,49,113,99,119,53,49,99,51,97,115,53,49,99],\"requestAddress\":\"143.54.220.57\"}}]}";
+    private String auditorJson = "{\"date\":\"2017-03-15T19:58:31.306Z\",\"logEntries\":[{\"date\":\"2017-03-15T19:58:31.306Z\",\"ip\":\"143.54.220.56\",\"restURL\":\"localhost:8080/otus-rest\",\"method\":\"PUT\",\"body\":{\"email\":\"diogo.rosas.ferreira@gmail.com\"},\"sessionIdentifier\":{\"token\":\"651cas651891qcw51c3as51c\",\"secretKey\":[54,53,49,99,97,115,54,53,49,56,57,49,113,99,119,53,49,99,51,97,115,53,49,99],\"requestAddress\":\"143.54.220.57\"}}]}";
     private LocalDateTime date;
     private Auditor auditor;
     private LogEntry logEntry;
@@ -32,7 +32,7 @@ public class AuditorTest {
         sessionLog.setRequestAddress("143.54.220.57");
         sessionLog.setToken("651cas651891qcw51c3as51c");
         sessionLog.setSecretKey("651cas651891qcw51c3as51c".getBytes());
-        logEntry = new LogEntry("143.54.220.56", "localhost:8080/otus-rest", body, sessionLog);
+        logEntry = new LogEntry("143.54.220.56", "localhost:8080/otus-rest", "PUT", body, sessionLog);
         auditor = new Auditor();
         auditor.init();
         auditor.addEntry(logEntry);
